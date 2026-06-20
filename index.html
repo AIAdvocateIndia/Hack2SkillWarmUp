@@ -193,6 +193,9 @@
                     <label>Password</label>
                     <input type="password" id="auth-password" required minlength="6">
                 </div>
+                <div style="text-align: right; margin-top: -12px; margin-bottom: 16px;">
+                    <a href="#" onclick="handleForgotPassword()" style="color: var(--accent-color); font-size: 0.85rem; text-decoration: none;" id="forgot-pass-link">Forgot Password?</a>
+                </div>
                 <button type="submit" class="btn btn-primary" id="auth-submit-btn">Login</button>
             </form>
             
@@ -322,7 +325,7 @@
     <script type="module">
         // --- 1. Firebase Imports ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
         // --- 2. Firebase Initialization ---
@@ -359,6 +362,7 @@
             isSignUpMode = !isSignUpMode;
             document.getElementById('auth-submit-btn').innerText = isSignUpMode ? 'Sign Up' : 'Login';
             document.querySelector('.auth-toggle').innerText = isSignUpMode ? 'Already have an account? Login' : "Don't have an account? Sign Up";
+            document.getElementById('forgot-pass-link').style.display = isSignUpMode ? 'none' : 'inline';
         }
 
         // --- 5. Authentication Logic ---
@@ -395,6 +399,25 @@
                 await signInWithPopup(auth, provider);
             } catch (error) {
                 document.getElementById('auth-error').innerText = error.message;
+            }
+        }
+
+        window.handleForgotPassword = async function() {
+            const email = document.getElementById('auth-email').value;
+            const errEl = document.getElementById('auth-error');
+            if(!email) {
+                errEl.style.color = "var(--danger-color)";
+                errEl.innerText = "Please enter your email address first.";
+                return;
+            }
+            try {
+                await sendPasswordResetEmail(auth, email);
+                errEl.style.color = "var(--success-color)";
+                errEl.innerText = "Password reset email sent. Check your inbox.";
+                setTimeout(() => { errEl.style.color = "var(--danger-color)"; errEl.innerText = ""; }, 5000);
+            } catch (error) {
+                errEl.style.color = "var(--danger-color)";
+                errEl.innerText = error.message;
             }
         }
 
