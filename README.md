@@ -1,42 +1,48 @@
-# PromptWars: Personalized Cooking To-Do List
+# PromptWars: AI Cooking Assistant
 
-## Overview
-This repository contains the source code for a Smart, Dynamic Assistant built for the Hack2Skill WarmUp challenge. The solution is developed as a lightweight, production-ready Single Page Application (SPA) contained entirely within a single file (`index.html`), adhering strictly to the < 10 MB limit and single-branch rule.
+PromptWars is a production-ready, intelligent web application designed to revolutionize personal meal planning. Leveraging the power of Google's Gemini 2.5 Flash API, the platform provides highly personalized, context-aware cooking recommendations tailored to a user's unique constraints, including budget, health goals, and family dietary restrictions.
 
-## Chosen Vertical
-**Challenge: A Cooking To-Do List**
-We designed a context-aware smart assistant that generates highly personalized meal plans, grocery lists, substitutions, and budget feasibility reports by leveraging Google's Gemini AI and Firebase.
+## 🚀 Key Features
 
-## Approach and Logic
-- **Architecture**: A zero-dependency vanilla HTML/JS/CSS stack for maximum performance.
-- **Authentication**: Secured with Firebase Authentication (Email/Password & Google SSO).
-- **Database**: Uses Firebase Firestore to save Family Profiles (Dietary habits, Likes, Dislikes) and track past Cooking Histories with timestamps.
-- **Context-Aware AI Generation**: Connects to the **Google AI Studio (Gemini 2.5 Flash) API**. The assistant gathers real-time form inputs (Budget, Health Goals, Target Days), pulls family profiles to check constraints, and retrieves past meals to avoid repetition. It then crafts a dynamic JSON prompt to return structured data.
+*   **Context-Aware AI Generation**: Connects to the Gemini AI API to dynamically generate comprehensive meal plans for specific timeframes (e.g., "Tomorrow", "Next 3 Days").
+*   **Family Profile Management**: Allows users to save family members with specific dietary needs (e.g., Vegan, Keto), likes, and dislikes. The AI engine automatically factors in these profiles to ensure every meal is suitable for the entire household.
+*   **Intelligent Grocery & Substitution Lists**: Beyond just recipes, the app generates an itemized grocery list with estimated costs and provides smart ingredient substitutions (e.g., swapping peanut butter for almond butter due to an allergy).
+*   **Budget Feasibility Analysis**: Automatically calculates the estimated cost of the meal plan against the user's defined daily budget, providing a clear pass/fail feasibility report.
+*   **History Tracking**: Saves all previously generated meal plans into a cloud database. The AI reads this history to prevent repeating recent meals, ensuring a varied and exciting diet.
+*   **Robust Security & Authentication**: Features secure Email/Password and Google Single Sign-On (SSO) authentication. To maximize security, the user's API key is stored locally in the browser rather than hardcoded into the application.
 
-## Evaluation Criteria Addressed
+## 🛠️ Technology Stack
 
-1. **Code Quality (High Impact)**
-   - The application uses modular JavaScript functions, DRY CSS variables, and clear documentation. The entire logic is neatly structured into Initialization, State, UI, Auth, Database, API, and Rendering blocks.
-2. **Problem Statement Alignment (High Impact)**
-   - Successfully implements the four mandated features: Meal Plan, Grocery List, Substitutions, and Budget Feasibility.
-3. **Security (Medium Impact)**
-   - **No Hardcoded Secrets**: The Gemini API key is collected securely via the application UI and stored in the browser's local storage.
-   - **XSS Protection**: A strict DOM `sanitize()` function ensures all database and AI outputs are escaped before injection.
-4. **Efficiency (Medium Impact)**
-   - Uses zero frontend UI frameworks (React/Vue), resulting in a lightning-fast initial load time. Context is strictly limited to the last 3 meals to avoid token bloat during API calls.
-5. **Testing (Low Impact)**
-   - Includes an automated, internal `runUnitTests()` module that executes on initialization to assert sanitization integrity.
-6. **Accessibility (Low Impact)**
-   - Utilizes semantic HTML structure, high-contrast dark mode colors, focus states, and scalable font sizes.
+PromptWars is built with a focus on extreme efficiency, speed, and clean architecture.
 
-## How to Run the Solution
-1. Clone this repository and open `index.html` in any modern web browser.
-2. Create an account via Email or Google Sign-In.
-3. Navigate to **Settings** and input your **Google AI Studio (Gemini) API Key**.
-4. Add **Family Profiles** under the Family tab.
-5. Go to **Plan Meals**, define your budget, goals, and target days, then click Generate!
+*   **Frontend**: Vanilla JavaScript (ES6 Modules), HTML5, and CSS3. The application is constructed as a lightweight Single Page Application (SPA) without the overhead of heavy frameworks, ensuring near-instant load times.
+*   **Backend / Database**: Google Firebase (v12.15.0).
+    *   **Firebase Authentication**: Manages user identities securely.
+    *   **Cloud Firestore**: A NoSQL document database used to store Family Profiles and Cooking History in real-time.
+    *   **Firebase Hosting**: Serves the application globally via an edge CDN.
+*   **Artificial Intelligence**: Google AI Studio (Gemini 2.5 Flash API) for natural language processing and structured JSON generation.
 
-## Assumptions Made
-- The target environment supports modern ES6 modules.
-- The Firebase configuration keys are intended for public client-side identification and are secured by domain restrictions in production.
-- Gemini API formatting occasionally shifts; the prompt explicitly demands strict JSON without markdown formatting to ensure deterministic parsing.
+## 📱 Responsive Design
+
+The user interface is designed to provide an optimal experience across all devices.
+*   **Desktop**: Features a persistent left sidebar for rapid navigation.
+*   **Mobile**: Transitions seamlessly to a sticky bottom navigation bar, ensuring primary actions are always within reach of the user's thumb.
+*   **Theming**: Employs a premium dark mode aesthetic with high-contrast typography for maximum accessibility and readability.
+
+## ⚙️ Setup & Deployment
+
+The application is engineered to run seamlessly without a complex build pipeline. 
+
+### Local Development
+1. Clone the repository.
+2. Open `index.html` in any modern web browser or serve it via a local development server (e.g., VS Code Live Server).
+3. Log in, navigate to Settings, and input your Gemini API Key.
+
+### Production Deployment
+The application is pre-configured for Firebase Hosting. 
+1. Install the Firebase CLI: `npm install -g firebase-tools`
+2. Authenticate: `firebase login`
+3. Deploy: `firebase deploy --only hosting`
+
+---
+*Built to deliver intelligent, scalable, and personalized culinary assistance.*
