@@ -325,7 +325,7 @@
     <script type="module">
         // --- 1. Firebase Imports ---
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
         // --- 2. Firebase Initialization ---
@@ -396,9 +396,10 @@
         window.handleGoogleAuth = async function() {
             const provider = new GoogleAuthProvider();
             try {
-                await signInWithPopup(auth, provider);
+                // Using Redirect instead of Popup to bypass strict browser popup blockers
+                await signInWithRedirect(auth, provider);
             } catch (error) {
-                document.getElementById('auth-error').innerText = error.message;
+                document.getElementById('auth-error').innerText = "Sign in failed: " + error.message;
             }
         }
 
