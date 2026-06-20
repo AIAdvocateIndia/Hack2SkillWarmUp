@@ -95,22 +95,51 @@
         .auth-toggle:hover { text-decoration: underline; }
 
         /* Main App Screen */
-        #app-screen { display: flex; flex-direction: column; min-height: 100vh; }
+        #app-screen { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         
+        /* Mobile Bottom Nav by Default */
         .navbar {
             background-color: var(--surface-bg);
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            z-index: 1000;
         }
+        
+        .navbar h2, .navbar .btn-outline { display: none; } /* Hide title and logout on mobile nav */
 
-        .nav-links { display: flex; gap: 16px; }
-        .nav-link { color: var(--text-secondary); cursor: pointer; font-weight: 500; padding: 8px 12px; border-radius: 6px; }
+        .nav-links { display: flex; width: 100%; justify-content: space-around; }
+        .nav-link { color: var(--text-secondary); cursor: pointer; font-weight: 500; padding: 10px; border-radius: 6px; text-align: center; flex: 1;}
         .nav-link:hover, .nav-link.active { color: var(--text-primary); background-color: var(--surface-hover); }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 24px; width: 100%; flex: 1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 24px; padding-bottom: 90px; width: 100%; flex: 1; overflow-y: auto; }
+
+        /* Desktop Left Sidebar Nav */
+        @media (min-width: 768px) {
+            #app-screen { flex-direction: row; }
+            .navbar {
+                position: static;
+                width: 250px;
+                height: 100vh;
+                border-top: none;
+                border-right: 1px solid var(--border-color);
+                flex-direction: column;
+                justify-content: flex-start;
+                padding: 24px;
+            }
+            .navbar h2, .navbar .btn-outline { display: block; }
+            .navbar h2 { margin-bottom: 32px; width: 100%; text-align: left; }
+            .navbar .btn-outline { margin-top: auto; width: 100%; }
+            .nav-links { flex-direction: column; width: 100%; justify-content: flex-start; gap: 8px;}
+            .nav-link { text-align: left; padding: 12px 16px; }
+            .container { padding-bottom: 24px; }
+        }
         
         .section-view { display: none; animation: fadeIn 0.3s ease-out; }
         .section-view.active { display: block; }
@@ -278,6 +307,11 @@
                     </div>
                     <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
                     <p id="settings-msg" class="mt-4" style="color:var(--success-color);"></p>
+                </div>
+                
+                <div class="card" style="margin-top: 24px;">
+                    <h2 class="mb-4">Account</h2>
+                    <button class="btn btn-danger" onclick="handleSignOut()">Sign Out</button>
                 </div>
             </div>
 
