@@ -1,6 +1,6 @@
-# PromptWars: AI Cooking Assistant
+# MyCooking App: AI Cooking Assistant
 
-PromptWars is a production-ready, intelligent web application designed to revolutionize personal meal planning. Leveraging the power of Google's Gemini 2.5 Flash API, the platform provides highly personalized, context-aware cooking recommendations tailored to a user's unique constraints, including budget, health goals, and family dietary restrictions.
+MyCooking App is a production-ready, intelligent web application designed to revolutionize personal meal planning. Leveraging the power of Google's Gemini 2.5 Flash API, the platform provides highly personalized, context-aware cooking recommendations tailored to a user's unique constraints, including budget, health goals, and family dietary restrictions.
 
 ## 🚀 Key Features
 
@@ -13,7 +13,7 @@ PromptWars is a production-ready, intelligent web application designed to revolu
 
 ## 🛠️ Technology Stack
 
-PromptWars is built with a focus on extreme efficiency, speed, and clean architecture.
+MyCooking App is built with a focus on extreme efficiency, speed, and clean architecture.
 
 *   **Frontend**: Vanilla JavaScript (ES6 Modules), HTML5, and CSS3. The application is constructed as a lightweight Single Page Application (SPA) without the overhead of heavy frameworks, ensuring near-instant load times.
 *   **Backend / Database**: Google Firebase (v12.15.0).
